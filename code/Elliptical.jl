@@ -3,7 +3,7 @@ using Plots
 
 
 root_chord = 2.2
-span = 15
+span = 15.0
 
 function define_elliptical(root_chord, span, ns)
     chord_distribution(y) = root_chord * sqrt(1-(y/(span/2))^2) #defines chord distribution by modification of ellipse equation
@@ -30,8 +30,8 @@ function elliptical(root_chord, span, ns)
     mirror = true
     symmetric = false
 
-    Sref = 30.0
-    cref = 2.0
+    Sref = pi/4 * root_chord * span #reference area for the wing, calculated as a quarter of the product of root chord and span
+    cref = 2.2
     bref = 15.0
     rref = [0.50, 0.0, 0.0]
     Vinf = 1.0
@@ -74,7 +74,5 @@ end
 ns_values = 2:1:50
 efficiencies = [elliptical(root_chord, span, ns) for ns in ns_values]
 
-elliptical(root_chord, span, ns)
 
 plot(ns_values, efficiencies, xlabel="Number of sections (ns)", ylabel="Efficiency", legend =false)
-#test 
