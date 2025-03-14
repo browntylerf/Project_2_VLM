@@ -4,7 +4,6 @@ using Plots
 
 root_chord = 2.2
 span = 15
-ns = 15
 
 function define_elliptical(root_chord, span, ns)
     chord_distribution(y) = root_chord * sqrt(1-(y/(span/2))^2) #defines chord distribution by modification of ellipse equation
@@ -65,9 +64,17 @@ function elliptical(root_chord, span, ns)
 
     CD, CY, CL = CF
     Cl, Cm, Cn = CM
-    write_vtk("elliptical-wing", system)
+    efficiency = CL / CD
+
+    #write_vtk("elliptical-wing", system)
+
+    return efficiency
 end
+
+ns_values = 2:1:50
+efficiencies = [elliptical(root_chord, span, ns) for ns in ns_values]
 
 elliptical(root_chord, span, ns)
 
+plot(ns_values, efficiencies, xlabel="Number of sections (ns)", ylabel="Efficiency", legend =false)
 #test 
