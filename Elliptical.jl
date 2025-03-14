@@ -1,16 +1,30 @@
 using VortexLattice
 using Plots
 
-function elliptical()
-    xle = [0.0, 0.4]
-    yle = [0.0, 7.5]
-    zle = [0.0, 0.0]
-    chord = [2.2, 1.8]
-    theta = [2.0*pi/180, 2.0*pi/180]
-    phi = [0.0, 0.0]
-    fc = fill((xc) -> 0, 2) #camberline function for each section
 
-    ns = 12
+root_chord = 2.2
+span = 15
+ns = 15
+
+function define_elliptical(root_chord, span, ns)
+    chord_distribution(y) = root_chord * sqrt(1-(y/(span/2))^2)
+
+    yle = range(0, stop=span/2, length=ns)
+    xle = zeros(ns)
+    zle = zeros(ns)
+    chord = [chord_distribution(y) for y in yle]
+    
+    return yle, xle, zle, chord
+end
+
+
+function elliptical(root_chord, span, ns)
+    yle, xle, zle, chord = define_elliptical(root_chord, span, ns)
+    theta = fill(2.0*pi/180, ns)
+    phi = fill(0.0, ns)
+    fc = fill((xc) -> 0, ns) #camberline function for each section
+
+    
     nc = 6
     spacing_s = Uniform()
     spacing_c = Uniform()
@@ -57,4 +71,4 @@ function elliptical()
     write_vtk("elliptical-wing", system)
 end
 
-elliptical()
+elliptical(root_chord, span, ns)
