@@ -7,14 +7,14 @@ span = 15
 ns = 15
 
 function define_elliptical(root_chord, span, ns)
-    chord_distribution(y) = root_chord * sqrt(1-(y/(span/2))^2)
+    chord_distribution(y) = root_chord * sqrt(1-(y/(span/2))^2) #defines chord distribution by modification of ellipse equation
 
-    yle = range(0, stop=span/2, length=ns)
-    xle = zeros(ns)
-    zle = zeros(ns)
-    chord = [chord_distribution(y) for y in yle]
+    yle = range(0, stop=span/2, length=ns) #defines y component of wing as a range from 0 to half the span, divided into ns sections
+    xle = zeros(ns) #defines x component of wing as a vector of zeros, same length as ns
+    zle = zeros(ns) #defines z component of wing as a vector of zeros, same length as ns
+    chord = [chord_distribution(y) for y in yle]   #defines chord length at each section by applying chord_distribution function to each element in yle vector
     
-    return yle, xle, zle, chord
+    return yle, xle, zle, chord #returns these values to be used in VLM calculations
 end
 
 
@@ -28,8 +28,8 @@ function elliptical(root_chord, span, ns)
     nc = 6
     spacing_s = Uniform()
     spacing_c = Uniform()
-    mirror = false
-    symmetric = true
+    mirror = true
+    symmetric = false
 
     Sref = 30.0
     cref = 2.0
@@ -43,12 +43,9 @@ function elliptical(root_chord, span, ns)
     Omega = [0.0; 0.0; 0.0]
     fs = Freestream(Vinf, alpha, beta, Omega)
 
-    # declare symmetry
-    symmetric = true
-
     # construct surface
     grid, ratio = wing_to_grid(xle, yle, zle, chord, theta, phi, ns, nc;
-        fc = fc, spacing_s=spacing_s, spacing_c=spacing_c)
+        fc = fc, spacing_s=spacing_s, spacing_c=spacing_c, mirror=mirror)
 
     # create vector containing all grids and ratios
     grids = [grid]

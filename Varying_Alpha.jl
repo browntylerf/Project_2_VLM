@@ -59,6 +59,7 @@ function varying_alpha()
         push!(CL_values, CL)
     end
     plot(alpha_range, CL_values, xlabel="Alpha (degrees)", ylabel="CL", legend=false)
+    savefig("Varying_Alpha.png")
 end
 
 varying_alpha()
