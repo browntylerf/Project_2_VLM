@@ -10,7 +10,7 @@ function define_elliptical(root_chord, span, ns)
     chord_distribution(y) = root_chord * sqrt(1-(y/(span/2))^2) #defines chord distribution by modification of ellipse equation
 
     yle = range(0, stop=span/2, length=ns) #defines y component of wing as a range from 0 to half the span, divided into ns sections
-    xle = [root_chord / 2 * (1-sqrt(1-(2*y/span)^2)) for y in yle] #defines x component of wing as a vector of zeros, same length as ns
+    xle = [root_chord / 2 * (1-sqrt(1-(2*y/span)^2)) for y in yle] # rearranged elliptical equation to define leading edge position in x component
     zle = zeros(ns) #defines z component of wing as a vector of zeros, same length as ns
     chord = [chord_distribution(y) for y in yle]   #defines chord length at each section by applying chord_distribution function to each element in yle vector
     
