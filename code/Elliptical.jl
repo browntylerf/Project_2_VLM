@@ -2,7 +2,7 @@ using VortexLattice
 using Plots
 
 
-root_chord = 4.0
+root_chord = 2.2
 span = 7.5
 
 function define_elliptical(root_chord, span, ns)
