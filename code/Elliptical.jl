@@ -2,13 +2,13 @@ using VortexLattice
 using Plots
 
 
-root_chord = 2.2
-span = 15.0
+root_chord = 4.0
+span = 7.5
 
 function define_elliptical(root_chord, span, ns)
     chord_distribution(y) = root_chord * sqrt(1-(y/(span/2))^2) #defines chord distribution by modification of ellipse equation
 
-    yle = range(0, stop=span/2, length=ns) #defines y component of wing as a range from 0 to half the span, divided into ns sections
+    yle = range(0, stop=span/2 - (1/(ns-1))*span/2, length=ns) #defines y component of wing as a range from 0 to half the span, divided into ns sections
     xle = [root_chord / 2 * (1-sqrt(1-(2*y/span)^2)) for y in yle] # rearranged elliptical equation to define leading edge position in x component
     zle = zeros(ns) #defines z component of wing as a vector of zeros, same length as ns
     chord = [chord_distribution(y) for y in yle]   #defines chord length at each section by applying chord_distribution function to each element in yle vector
@@ -31,13 +31,13 @@ function elliptical(root_chord, span, ns)
     symmetric = false
 
     Sref = pi/4 * root_chord * span #reference area for the wing, calculated as a quarter of the product of root chord and span
-    cref = 2.2
-    bref = 15.0
+    cref = root_chord
+    bref = span
     rref = [0.50, 0.0, 0.0]
     Vinf = 1.0
     ref = Reference(Sref, cref, bref, rref, Vinf)
 
-    alpha = 1.0*pi/180
+    alpha = 5.0*pi/180
     beta = 0.0
     Omega = [0.0; 0.0; 0.0]
     fs = Freestream(Vinf, alpha, beta, Omega)
@@ -64,15 +64,14 @@ function elliptical(root_chord, span, ns)
 
     CD, CY, CL = CF
     Cl, Cm, Cn = CM
-    efficiency = CL / CD
-
-    #write_vtk("elliptical-wing", system)
+    efficiency = CL/CD
+    #print(CD)
+    write_vtk("elliptical-wing", system)
 
     return efficiency
 end
 
-ns_values = 2:1:50
+ns_values = 3:1:50
 efficiencies = [elliptical(root_chord, span, ns) for ns in ns_values]
 
-
-plot(ns_values, efficiencies, xlabel="Number of sections (ns)", ylabel="Efficiency", legend =false)
+plot(ns_values, efficiencies, xlabel="Number of sections (ns)", ylabel="Efficiency", legend=false)

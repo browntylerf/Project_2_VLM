@@ -6,7 +6,7 @@ function varying_alpha()
     yle = [0.0, 7.5]
     zle = [0.0, 0.0]
     chord = [2.2, 1.8]
-    theta = [2.0*pi/180, 2.0*pi/180]
+    theta = [0.0*pi/180, 0.0*pi/180]
     phi = [0.0, 0.0]
     fc = fill((xc) -> 0, 2) #camberline function for each section
 
