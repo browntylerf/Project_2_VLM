@@ -199,7 +199,6 @@ function volume_ratios()
     plot5 = plot(vert_coeff, Cma_vert, xlabel="Vertical Tail Volume Coefficient", ylabel="Cma", legend=false)
     plot6 = plot(vert_coeff, Cna_vert, xlabel="Vertical Tail Volume Coefficient", ylabel="Cna", legend=false)
 
-    # Display plots
     display(plot1)
     display(plot2)
     display(plot3)
