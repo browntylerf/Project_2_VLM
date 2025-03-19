@@ -107,8 +107,6 @@ function volume_ratios()
         Cla, Cma, Cna = dCM[:alpha]
         Clb, Cmb, Cnb = dCM[:beta]
 
-        write_vtk("wing-tail", system)
-
         tail_volume_coeff_horiz = (span_h*chord_h[1]*4)/(Sref * cref) #4 is the distance between the aerodynamic center of the wing and the horizontal tail
 
         push!(horiz_coeff, tail_volume_coeff_horiz)
@@ -182,8 +180,6 @@ function volume_ratios()
         
         Cla, Cma, Cna = dCM[:alpha]
         Clb, Cmb, Cnb = dCM[:beta]
-
-        write_vtk("wing-tail", system)
 
         tail_volume_coeff_vert = (span_v*chord_v[1]*4)/(Sref * cref) #4 is the distance between the aerodynamic center of the wing and the vertical tail
 
