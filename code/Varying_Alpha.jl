@@ -14,8 +14,8 @@ function varying_alpha()
     nc = 6
     spacing_s = Uniform()
     spacing_c = Uniform()
-    mirror = false
-    symmetric = true
+    mirror = true
+    symmetric = false
 
     Sref = 30.0
     cref = 2.0
@@ -36,7 +36,7 @@ function varying_alpha()
 
         # construct surface
         grid, ratio = wing_to_grid(xle, yle, zle, chord, theta, phi, ns, nc;
-        fc = fc, spacing_s=spacing_s, spacing_c=spacing_c)
+        fc = fc, spacing_s=spacing_s, spacing_c=spacing_c, mirror=mirror)
 
         # create vector containing all grids and ratios
         grids = [grid]
@@ -57,6 +57,7 @@ function varying_alpha()
         CD, CY, CL = CF
         Cl, Cm, Cn = CM
         push!(CL_values, CL)
+        write_vtk("varying_alpha", system)
     end
     plot(alpha_range, CL_values, xlabel="Alpha (degrees)", ylabel="CL", legend=false)
     savefig("Varying_Alpha.png")

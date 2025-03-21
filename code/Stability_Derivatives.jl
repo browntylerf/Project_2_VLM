@@ -188,6 +188,7 @@ function volume_ratios()
         push!(Cma_vert, Cnb) #yaw stability
         push!(Cna_vert, Clb) #roll stability
     end
+    
     plot1 = plot(horiz_coeff, Cla_horiz, xlabel="Horizontal Tail Volume Coefficient", ylabel="Cla", legend=false)
     plot2 = plot(horiz_coeff, Cma_horiz, xlabel="Horizontal Tail Volume Coefficient", ylabel="Cma", legend=false)
     plot3 = plot(horiz_coeff, Cna_horiz, xlabel="Horizontal Tail Volume Coefficient", ylabel="Cna", legend=false)

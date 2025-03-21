@@ -67,11 +67,12 @@ function elliptical(root_chord, span, ns)
     efficiency = CL/CD
     #print(CD)
     write_vtk("elliptical-wing", system)
-
+    println(efficiency)
     return efficiency
 end
 
-ns_values = 3:1:50
+ns_values = 3:1:100
 efficiencies = [elliptical(root_chord, span, ns) for ns in ns_values]
 
-plot(ns_values, efficiencies, xlabel="Number of sections (ns)", ylabel="Efficiency", legend=false)
+plot(ns_values, efficiencies, xlabel="Number of spanwise sections", ylabel="Efficiency", legend=false)
+savefig("elliptical_efficiency.png")
