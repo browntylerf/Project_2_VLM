@@ -188,6 +188,7 @@ function volume_ratios()
         push!(Cma_vert, Cma) #longitudinal stability
         push!(Clb_vert, Clb) #yaw stability
         push!(Cnb_vert, Cnb) #roll stability
+        write_vtk("tail_wing", system)
     end
     
     plot1 = plot(horiz_coeff, Cma_horiz, xlabel="Horizontal Tail Volume Coefficient", ylabel="Cma", legend=false)
@@ -203,6 +204,12 @@ function volume_ratios()
     display(plot4)
     display(plot5)
     display(plot6)
+    savefig(plot1, "Cma_horiz.png")
+    savefig(plot2, "Clb_horiz.png")
+    savefig(plot3, "Cnb_horiz.png")
+    savefig(plot4, "Cma_vert.png")
+    savefig(plot5, "Clb_vert.png")
+    savefig(plot6, "Cnb_vert.png")
 end
 
 function avl_normal_vector(ds, theta)
