@@ -24,7 +24,7 @@ function varying_alpha()
     Vinf = 1.0
     ref = Reference(Sref, cref, bref, rref, Vinf)
 
-    alpha_range = -10:0.5:10
+    alpha_range = -20:0.5:20
     alphas = alpha_range .*pi/180
     beta = 0.0
     Omega = [0.0; 0.0; 0.0]
